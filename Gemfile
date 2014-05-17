@@ -10,7 +10,7 @@ gem 'pry'
 gem 'thin'
 gem 'paperclip'
 gem 'aws-sdk'
-gem ‘rails_12factor’, group: :production
+gem 'rails_12factor', group: :production
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
