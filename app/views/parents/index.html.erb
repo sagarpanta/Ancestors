@@ -1,0 +1,54 @@
+
+<div id="searchprofile" class="button-list">
+	<div class="button">
+	  <%= text_field_tag 'name',  '', {:placeholder => 'Search',  :size => 5} %>
+	  <%= submit_tag("Search") %>
+	  <%= button_tag "Cancel", :id=>'searchCancelButton' %>
+	</div>
+</div>
+
+
+
+<ul id="menu" class="menu">
+	<li>Home</li>		
+	<li>News</li>
+	<li>Gallery</li>
+</ul>	
+
+
+<table id="_content">
+
+	<tr id="contentTR">
+		<td id="sidebarID">
+			<div id="sidebar">
+				<ul>
+					<% Parent.sidebar().each do |c| %>
+						<li><%= c[0] %><div id="hiddenshowchild" style="display:none"><%= c[1] %></div><div id="hiddenImg" style="display:none"><%= c[2] %></div></li>
+					<% end %>			
+				</ul>
+			</div>
+		</td>
+		<td id="orgColumn">
+			 <ul id="org" style="display:none">
+			  <%= raw Parent.buildtree(1,'') %>
+			 </ul>            
+			  
+
+			<div id="chart" class="orgChart"></div>
+		</td>
+
+	</tr>
+</table>
+
+
+<div class = "smoothmenu">
+<ul id="navlist">
+	<li>ALL</li><li>A</li><li>B</li><li>C</li><li>D</li><li>E</li>
+	<li>F</li><li>G</li><li>H</li><li>I</li><li>J</li>
+	<li>K</li><li>L</li><li>M</li><li>N</li><li>O</li>
+	<li>P</li><li>Q</li><li>R</li><li>S</li><li>T</li>
+	<li>U</li><li>V</li><li>W</li><li>X</li><li>Y</li><li>Z</li>
+</ul>
+</div>
+
+

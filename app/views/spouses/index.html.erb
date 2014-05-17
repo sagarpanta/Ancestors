@@ -1,0 +1,31 @@
+<h1>Listing spouses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fullname</th>
+      <th>Dob</th>
+      <th>Gender</th>
+      <th>Child</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @spouses.each do |spouse| %>
+      <tr>
+        <td><%= spouse.fullname %></td>
+        <td><%= spouse.dob %></td>
+        <td><%= spouse.gender %></td>
+        <td><%= spouse.child_id %></td>
+        <td><%= link_to 'Show', spouse %></td>
+        <td><%= link_to 'Edit', edit_spouse_path(spouse) %></td>
+        <td><%= link_to 'Destroy', spouse, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Spouse', new_spouse_path %>

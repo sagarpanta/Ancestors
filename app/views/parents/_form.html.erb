@@ -1,0 +1,52 @@
+<%= form_for(@parent) do |f| %>
+  <% if @parent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@parent.errors.count, "error") %> prohibited this parent from being saved:</h2>
+
+      <ul>
+      <% @parent.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  
+  <div class="field">
+    Father Name<br>
+    <%= f.text_field :fatherName %>
+  </div>
+  <div class="field">
+    DOB<br>
+    <%= f.date_field :fatherDOB %>
+  </div>
+  <div class="field">
+    Mother Name<br>
+    <%= f.text_field :motherName %>
+  </div>
+  <div class="field">
+    DOB<br>
+    <%= f.date_field :motherDOB %>
+  </div>
+  <div class="field">
+    About<br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    Father's Father Name (Can be empty)<br>
+    <%= text_field_tag :fatherfatherName %>
+  </div>
+  <div class="field">
+    Upload File</br>
+    <%= f.file_field :photo , :class=>"fileinput" %>
+  </div>
+  <%= f.fields_for :children do |builder| %>
+	<%= render 'child_fields', f: builder %>
+  <% end %>
+  
+  <%= link_to_add_fields "Add child", f, :children %>  
+
+  <div class="actions createaction">
+    <%= f.submit %>
+  </div>
+<% end %>
