@@ -16,13 +16,10 @@
 
 $(document).ready(function() {
 
-//**defined in parent.js**
-/*
 	$("#org").jOrgChart({
 		chartElement : '#chart',
 		dragAndDrop  : false
     });
-*/	
 
 	$('.node').click(function(){
 		console.log('i m here');
