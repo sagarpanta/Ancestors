@@ -94,7 +94,9 @@ $(document).ready(function() {
 				var ht = parseInt(window_height)-100;
 				$('.jOrgChart').children('table').children('tbody').prepend('<tr><td colspan="4"><img src='+data['y']+'</td></tr>');
 				
-				var _html = '<table style="position:relative; float:right; width:30%; background-color:#aaa; color:black; border:2px solid white; min-height:'+ht+'px !important"><tr><td style="left:10px;box-sizing:border-box;border:10px solid transparent; font-style:italic" valign="top"><div style="font-weight:bold">About: </div>'+data['z']+'</td></tr></table>';
+				$('#prependedTable').remove();
+				
+				var _html = '<table id="prependedTable" style="position:relative; float:right; width:30%; background-color:#aaa; color:black; border:2px solid white; min-height:'+ht+'px !important"><tr><td style="left:10px;box-sizing:border-box;border:10px solid transparent; font-style:italic" valign="top"><div style="font-weight:bold">About: </div>'+data['z']+'</td></tr></table>';
 				$('#orgColumn').prepend(_html);
 			
 			},
