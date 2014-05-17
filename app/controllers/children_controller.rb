@@ -6,6 +6,7 @@ class ChildrenController < ApplicationController
   # GET /children.json
   def index
     @children = Child.all
+	
   end
 
   # GET /children/1
