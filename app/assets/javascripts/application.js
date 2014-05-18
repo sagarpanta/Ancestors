@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 	
 	$("ul.menu li").mouseover(function() {
-		$(this).css("background", "#bbb");
+		$(this).css("background", "#000");
 	});
 	
 	$("ul.menu li").mouseout(function() {
