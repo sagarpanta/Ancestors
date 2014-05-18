@@ -20,11 +20,6 @@ $(document).ready(function() {
 		chartElement : '#chart',
 		dragAndDrop  : false
     });
-
-	$('.node').click(function(){
-		console.log('i m here');
-	
-	});
 	
 	
 	var window_width = $(window).width();

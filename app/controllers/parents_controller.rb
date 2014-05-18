@@ -48,8 +48,8 @@ class ParentsController < ApplicationController
 		end
 		
 		
-		
-		if !child[0].nil? and child[0].parent.fatherName == params[:fatherfatherName]
+		fatherfatherName = params[:fatherfatherName].split(' ').join(' ').upcase
+		if !child[0].nil? and child[0].parent.fatherName == fatherfatherName
 			#the child's spouses
 			spouses = child[0].spouses
 			
@@ -85,7 +85,6 @@ class ParentsController < ApplicationController
   # PATCH/PUT /parents/1
   # PATCH/PUT /parents/1.json
   def update
-	binding.pry
     respond_to do |format|
       if @parent.update(parent_params)
         format.html { redirect_to @parent, notice: 'Parent was successfully updated.' }

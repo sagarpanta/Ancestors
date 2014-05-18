@@ -13,6 +13,11 @@ class Child < ActiveRecord::Base
   
 	accepts_nested_attributes_for :spouses, allow_destroy: true
 	
-	
+  before_save :uppercase
+  
+  def uppercase
+	fN = fullname.split(' ').join(' ')
+	self.fullname = fN.upcase
+  end	
 	
 end

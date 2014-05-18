@@ -11,6 +11,15 @@ class Parent < ActiveRecord::Base
 	accepts_nested_attributes_for :children, allow_destroy: true
 	
 	
+  before_save :uppercase
+  
+  def uppercase
+	fN = fatherName.split(' ').join(' ')
+	mN = motherName.split(' ').join(' ')
+	self.fatherName = fN.upcase
+	self.motherName = mN.upcase
+  end
+  
   
   def self.buildtree(id, tags)
 	parent = Parent.find_by_id(id)
@@ -18,10 +27,10 @@ class Parent < ActiveRecord::Base
 	if !parent.nil?
 		
 		if parent.id == Parent.first.id
-			tags +=  '<li>' + parent.fatherName.upcase + ' ** ' + parent.motherName.upcase + '<div style="display:none" data-url="/parents/'+parent.id.to_s+'.json" >'+parent.photo.url(:medium)+'</div>' + '<ul>'
+			tags +=  '<li>' + parent.fatherName + ' ** ' + parent.motherName + '<div style="display:none" data-url="/parents/'+parent.id.to_s+'.json" >'+parent.photo.url(:medium)+'</div>' + '<ul>'
 		else
 			photoURL = Child.find_by_id(parent.child_id).photo.url(:medium)
-			tags +=  '<li>' + parent.fatherName.upcase + ' ** ' + parent.motherName.upcase + '<div style="display:none" data-url="/children/'+parent.child_id.to_s+'.json" >'+photoURL+'</div>' + '<ul>'
+			tags +=  '<li>' + parent.fatherName + ' ** ' + parent.motherName + '<div style="display:none" data-url="/children/'+parent.child_id.to_s+'.json" >'+photoURL+'</div>' + '<ul>'
 		end
 		children = parent.children
 		children.each do |e|
@@ -34,9 +43,9 @@ class Parent < ActiveRecord::Base
 			else
 				spouses = ''
 				e.spouses.each do |s|
-					spouses += ' ** '+s.fullname.upcase
+					spouses += ' ** '+s.fullname
 				end
-				tags += '<li>'+e.fullname.upcase+spouses+ '<div style="display:none" data-url="/children/'+e.id.to_s+'.json" >'+e.photo.url(:medium)+'</div>' + '</li>'
+				tags += '<li>'+e.fullname+spouses+ '<div style="display:none" data-url="/children/'+e.id.to_s+'.json" >'+e.photo.url(:medium)+'</div>' + '</li>'
 			end
 		end
 		tags += '</ul></li>'
@@ -55,7 +64,7 @@ class Parent < ActiveRecord::Base
 	clickedPerson_as_a_parent = Parent.where('child_id = ?', id)
 	
 	photoURL = parent.id == Parent.first.id ? parent.photo.url(:medium): Child.find_by_id(parent.child_id).photo.url(:medium)
-	tags +=  '<li>' + parent.fatherName.upcase + ' ** ' + parent.motherName.upcase + '<div style="display:none" data-url="/children/'+parent.child_id.to_s+'.json" >'+photoURL+'</div>' + '<ul>'
+	tags +=  '<li>' + parent.fatherName + ' ** ' + parent.motherName + '<div style="display:none" data-url="/children/'+parent.child_id.to_s+'.json" >'+photoURL+'</div>' + '<ul>'
 	clickedPerson_as_a_parent_name = ''
 		
 	if clickedPerson_as_a_parent[0].nil?
@@ -67,15 +76,15 @@ class Parent < ActiveRecord::Base
 			clickedPerson_children = c.children
 			clickedPerson_as_a_parent_name = c.fatherName
 			
-			tags +=  '<li>' + c.fatherName.upcase+' ** '+c.motherName.upcase + '<div style="display:none" data-url="/children/'+clickedPerson.id.to_s+'.json" >'+clickedPerson.photo.url(:medium)+'</div>' + '<ul>'
+			tags +=  '<li>' + c.fatherName+' ** '+c.motherName + '<div style="display:none" data-url="/children/'+clickedPerson.id.to_s+'.json" >'+clickedPerson.photo.url(:medium)+'</div>' + '<ul>'
 
 			if !clickedPerson_children.nil?
 				clickedPerson_children.each do |e|
 					spouses = ''
 					e.spouses.each do |s|
-						spouses += ' ** '+s.fullname.upcase
+						spouses += ' ** '+s.fullname
 					end
-					tags += '<li>'+e.fullname.upcase+spouses+ '<div style="display:none" data-url="/children/'+e.id.to_s+'.json" >'+e.photo.url(:medium)+'</div>' + '</li>'	
+					tags += '<li>'+e.fullname+spouses+ '<div style="display:none" data-url="/children/'+e.id.to_s+'.json" >'+e.photo.url(:medium)+'</div>' + '</li>'	
 				end
 				tags += '</ul>'
 			end		
@@ -89,9 +98,9 @@ class Parent < ActiveRecord::Base
 			if e.fullname != clickedPerson_as_a_parent_name
 				spouses = ''
 				e.spouses.each do |s|
-					spouses += ' ** '+s.fullname.upcase
+					spouses += ' ** '+s.fullname
 				end
-				tags += '<li>'+e.fullname.upcase+ spouses+ '<div style="display:none" data-url="/children/'+e.id.to_s+'.json" >'+e.photo.url(:medium)+'</div>' + '</li>'	
+				tags += '<li>'+e.fullname+ spouses+ '<div style="display:none" data-url="/children/'+e.id.to_s+'.json" >'+e.photo.url(:medium)+'</div>' + '</li>'	
 			end
 		end
 		tags += '</ul>'
@@ -108,14 +117,14 @@ class Parent < ActiveRecord::Base
 	name_part = []
 	if !Parent.first.nil?
 		id = Parent.first.id
-		name_part <<  Parent.first.fatherName.upcase
+		name_part <<  Parent.first.fatherName
 		name_part <<  '/parents/' + Parent.first.id.to_s + '.json'
 		name_part << Parent.first.photo.url(:medium)
 		@names << name_part
 		name_part = []
 		
 		Child.all.order('fullname').each do |c|
-			name_part << c.fullname.upcase
+			name_part << c.fullname
 			name_part << '/children/'+ c.id.to_s + '.json'
 			name_part << c.photo.url(:medium)
 			@names << name_part
