@@ -30,7 +30,7 @@ class ParentsController < ApplicationController
   # POST /parents.json
   def create
     @parent = Parent.new(parent_params)
-
+	
     respond_to do |format|
       if @parent.save
 		

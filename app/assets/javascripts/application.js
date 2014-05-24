@@ -87,6 +87,10 @@ $(document).ready(function() {
 				$('.jOrgChart').css('height', parseInt(window_height) - 150);
 				
 				var ht = parseInt(window_height)-100;
+				
+				if (data['y'].substring(0,3) != 'http'){
+					data['y'] = '"'+data['y']+'"'
+				}
 				$('.jOrgChart').children('table').children('tbody').prepend('<tr><td colspan="4"><img src='+data['y']+'</td></tr>');
 				
 				$('#prependedTable').remove();
